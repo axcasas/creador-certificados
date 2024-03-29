@@ -4,11 +4,13 @@ import zipfile
 import tempfile
 import base64
 import pandas as pd
+from pathlib import Path
 from main import create_certificate, clean_data
 
 def main():
 
-    st.sidebar.image("logo_nt.png")
+    logo = Path('data/logo_nt.png')
+    st.sidebar.image(str(logo))
     st.sidebar.markdown("<h1 style='text-align: center;'>Creación de Certificados Asistencia NT</h1>", unsafe_allow_html=True)
     st.sidebar.markdown("En esta interfaz gráfica pueden generar certificados de asistencia de manera sencilla en tan solo 3 pasos")
     st.sidebar.markdown("1. Subir tu archivo CSV")

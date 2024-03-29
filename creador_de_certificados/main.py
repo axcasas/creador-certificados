@@ -1,5 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 import pandas as pd 
+from pathlib import Path
 
 def clean_data(csv_file):
     df = pd.read_csv(csv_file)
@@ -38,7 +39,8 @@ def create_certificate(data, certificate_path: str, output_folder: str):
 
         # IMPORTANT
         # Set your own Font! If you get errors you can use the available fonts on your computer
-        font = ImageFont.truetype('Roboto-Medium.woff', int(font_size))
+        font_path = str(Path('data/Roboto-Medium.woff'))
+        font = ImageFont.truetype(font_path, int(font_size))
 
         # text width
         text_width, _ = draw.textsize(name, font=font)
