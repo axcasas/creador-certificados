@@ -1,6 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 import pandas as pd 
 from pathlib import Path
+import logging
 
 def clean_data(csv_file):
     df = pd.read_csv(csv_file)
@@ -12,6 +13,8 @@ def clean_data(csv_file):
     return df
 
 def create_certificate(data, certificate_path: str, output_folder: str):
+    logging.basicConfig(filename='certificate_creation.log', level=logging.ERROR)
+
     print('Creating your certificates...')
 
     # Extract names from the cleaned data
@@ -22,7 +25,7 @@ def create_certificate(data, certificate_path: str, output_folder: str):
         name = name.replace('.', '').replace(',', '').replace(':', '').strip()
         name = name.upper()
 
-        text_y_position = 430 # 450 original nt helvetica, 675 original webinar aacc
+        text_y_position = 430  # Adjusted position for text
         img = Image.open(certificate_path, mode='r')
         img_width = img.width
 
@@ -35,12 +38,18 @@ def create_certificate(data, certificate_path: str, output_folder: str):
         if len(name) > 30:
             font_size = font_size / 2
         elif len(name) > 20:
-            font_size = font_size * 2/3
+            font_size = font_size * 2 / 3
 
         # IMPORTANT
         # Set your own Font! If you get errors you can use the available fonts on your computer
         font_path = str(Path('data/Roboto-Medium.woff'))
-        font = ImageFont.truetype(font_path, int(font_size))
+        
+        try:
+            font = ImageFont.truetype(font_path, int(font_size))
+        except Exception as e:
+            logging.error(f"Error loading font file: {e}")
+            print(f"Error loading font file: {e}")
+            continue  # Skip this certificate and continue with the next one
 
         # text width
         text_width, _ = draw.textsize(name, font=font)
