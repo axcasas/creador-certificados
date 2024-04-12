@@ -24,7 +24,7 @@ The Certificate Creation Tool is a collection of Python scripts designed to auto
 
 ```
 git clone https://github.com/axcasas/creador-certificados.git
-cd certificate-creation-tool
+cd creador-certificados
 pip install -r requirements.txt
 ```
 2. **Customization**: Customize the certificate templates stored in the certificates/ folder.
