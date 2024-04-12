@@ -5,10 +5,9 @@ import tempfile
 import base64
 import pandas as pd
 from pathlib import Path
-from main import create_certificate, clean_data
+from main import create_certificate_nt, create_certificate_aacc, clean_data
 
 def main():
-
     logo = Path('data/logo_nt.png')
     st.sidebar.image(str(logo))
     st.sidebar.markdown("<h1 style='text-align: center;'>Creación de Certificados Asistencia NT</h1>", unsafe_allow_html=True)
@@ -24,35 +23,43 @@ def main():
     st.markdown("Pueden conseguir su archivo CSV simplemente descargando el Google Sheets generado de las respuestas del Google Forms")
     csv_file = st.file_uploader("Subir archivo CSV", type=["csv"])
 
-    # Step 2 File uploader for certificate template
-    st.header("Paso 2: Subir Template (plantilla) de Certificafo en formato JPG")
+    # Step 2: Select certificate type
+    st.header("Paso 2: Seleccionar Tipo de Certificado")
+    certificate_type = st.radio("Seleccione el tipo de certificado:", ('Certificado de Asistencia NT', 'Certificado de Asistencia AACC'))
+
+    # Step 3 File uploader for certificate template
+    st.header("Paso 3: Subir Template (plantilla) de Certificafo en formato JPG")
     cert_template = st.file_uploader("Subir template de certificado (JPG)", type=["jpg"])
 
     if cert_template is not None:
         st.image(cert_template, caption='Tu template de certificado')
 
     # Step 4: Download Certificates (ZIP)
-    st.header("Paso 3: Descargar Certificados")
+    st.header("Paso 4: Descargar Certificados")
 
     if csv_file and cert_template:
         # Display uploaded file details
         st.write("✅ Archivo CSV correctamente cargado:", csv_file.name)
         st.write("✅ Template de certificado (JPG) correctamente cargado:", cert_template.name)
-        st.markdown("##### 🤓 Todo listo para generar tus certificados! Hace click en el siguiente botón:")
+        st.markdown("##### 🤓 ¡Todo listo para generar tus certificados! Haz clic en el siguiente botón:")
 
         # Button to generate certificates
         if st.button("Generar Certificados"):
             # Clean data
             cleaned_data = clean_data(csv_file)
 
-            # Create certificates
+            # Create certificates based on selected type
             with tempfile.TemporaryDirectory() as temp_dir:
                 output_dir = temp_dir
-                create_certificate(cleaned_data, cert_template, output_dir)
+                if certificate_type == 'Certificado de Asistencia NT':
+                    create_certificate_nt(cleaned_data, cert_template, output_dir)
+                elif certificate_type == 'Certificado de Asistencia AACC':
+                    create_certificate_aacc(cleaned_data, cert_template, output_dir)
 
                 # Provide download link for generated certificates
-                st.markdown("##### 😃 Listo! Ya podés descargar tus certificados. El link de abajo descargará todos los certis creados en formato pdf en un ZIP:")
+                st.markdown("##### 😃 ¡Listo! Ya puedes descargar tus certificados. El siguiente enlace descargará todos los certificados en formato PDF en un archivo ZIP:")
                 st.markdown(get_download_link(output_dir), unsafe_allow_html=True)
+
 
 def get_download_link(output_dir):
 
