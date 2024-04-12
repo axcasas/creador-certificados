@@ -1,16 +1,13 @@
 # ignore pycache
-/creador_de_certificados/__pycache__/
-/notebooks/__pycache__/
+/__pycache/*
 
 # ignore tempcoderunner
 /creador_de_certificados/tempCodeRunnerFile.py
 
 # ignore data files 
-/data/charla_psicodelicos.csv
 /data/aacc.jpg
 /data/psicodelicos_template.jpg
 
 # ignore log
 certificate_creation.log
 .DS_Store
-__pycache__
