@@ -3,6 +3,22 @@ from pathlib import Path
 import logging
 
 def create_certificate_no_app_nt(names, certificate:str, output_folder:str):
+    """
+    Create certificates for Neurotransmitiendo recipients without using the user interface.
+
+    Parameters:
+        names (list): List of recipient names.
+        certificate (str): Path to the certificate template image file.
+        output_folder (str): Path to the folder where generated certificates will be saved.
+
+    Returns:
+        None
+
+    This function iterates through the list of recipient names, adds each name to the certificate template image,
+    and saves the generated certificates as PDF files in the specified output folder.
+
+    Note: Adjusted font size, font style, text color, and text position for better certificate presentation.
+    """
 
     print('Creating your certificates...')
 
@@ -51,6 +67,22 @@ def create_certificate_no_app_nt(names, certificate:str, output_folder:str):
         print(f"Saved certificate for {name} at {output_path}")
 
 def create_certificate_no_app_aacc(names, certificate:str, output_folder:str):
+    """
+    Create certificates for AACC recipients without using the user interface.
+
+    Parameters:
+        names (list): List of recipient names.
+        certificate (str): Path to the certificate template image file.
+        output_folder (str): Path to the folder where generated certificates will be saved.
+
+    Returns:
+        None
+
+    This function iterates through the list of recipient names, adds each name to the certificate template image,
+    and saves the generated certificates as PDF files in the specified output folder.
+
+    Note: Adjusted font size, font style, text color, and text position for better certificate presentation.
+    """
 
     print('Creating your certificates...')
 

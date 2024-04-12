@@ -4,6 +4,20 @@ from pathlib import Path
 import logging
 
 def clean_data(csv_file):
+    """
+    Clean and preprocess the data from a CSV file.
+
+    Parameters:
+        csv_file (str): Path to the CSV file containing the data.
+
+    Returns:
+        DataFrame: Cleaned DataFrame with renamed columns.
+
+    This function reads the data from the specified CSV file into a DataFrame,
+    renames the columns to standardized names, and returns the cleaned DataFrame.
+
+    Note: Specify column name mappings according to the actual column names in your CSV file.
+    """
     df = pd.read_csv(csv_file)
 
     df = df.rename(columns={
@@ -13,6 +27,24 @@ def clean_data(csv_file):
     return df
 
 def create_certificate_nt(data, certificate_path: str, output_folder: str):
+    """
+    Create certificates for NT recipients.
+
+    Parameters:
+        data (DataFrame): DataFrame containing recipient names under the 'nombre_apellido' column.
+        certificate_path (str): Path to the certificate template image file.
+        output_folder (str): Path to the folder where generated certificates will be saved.
+
+    Returns:
+        None
+
+    This function iterates through the recipient names extracted from the provided DataFrame,
+    adds each name to the certificate template image, and saves the generated certificates as PDF files
+    in the specified output folder.
+
+    Note: Adjusted font size, font style, and text position for better certificate presentation.
+    """
+
     logging.basicConfig(filename='certificate_creation.log', level=logging.ERROR)
 
     print('Creating your certificates...')
@@ -63,6 +95,24 @@ def create_certificate_nt(data, certificate_path: str, output_folder: str):
         print(f"Saved certificate for {name} at {output_path}")
 
 def create_certificate_aacc(data, certificate_path: str, output_folder: str):
+    """
+    Create certificates for AACC recipients.
+
+    Parameters:
+        data (DataFrame): DataFrame containing recipient names under the 'nombre_apellido' column.
+        certificate_path (str): Path to the certificate template image file.
+        output_folder (str): Path to the folder where generated certificates will be saved.
+
+    Returns:
+        None
+
+    This function iterates through the recipient names extracted from the provided DataFrame,
+    adds each name to the certificate template image, and saves the generated certificates as PDF files
+    in the specified output folder.
+
+    Note: Adjusted font size, font style, and text position for better certificate presentation.
+    """
+        
     logging.basicConfig(filename='certificate_creation.log', level=logging.ERROR)
 
     print('Creating your certificates...')
